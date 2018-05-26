@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        $.ajax({
+          url: "http://localhost:5000/json/Player/" + $( "#titleq" ).val(),
+          dataType: "jsonp",
+          success: function( data ) {
+              var items = [];
+              $.each( data['Player'], function( key, val ) {
+                items.push("<li>" + val.PlayerName + "; " + val.Year + "; " +val.Age + "; " +val.YearsExp + "; " +val.Height + "; " +val.Weight + "; " +val.Salary +  "</li>");
+              });
+
+              $( "<ul/>", {
+                "class": "my-new-list",
+                html: items.join( "" )
+              }).appendTo( "#jsonresult" );
+          }
+        });
+    });
+});
+</script>
+</head>
+<body>
+
+<button>Get Player JSON</button>
+<input type="text" id="titleq"></input>
+
+<div id="jsonresult"></div>
+
+</body>
+</html>
