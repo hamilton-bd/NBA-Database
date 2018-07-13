@@ -1,9 +1,14 @@
 import csv
 import MySQLdb
-from get_key import get_key
 
 
-def population():
+def get_key(filename="key.txt"):
+    with open(filename, 'r') as file:
+        fl = file.readline().strip()
+        return fl
+
+
+def populate_db():
     conn = MySQLdb.connect(host='localhost',
                            user='root',
                            passwd=get_key(),
@@ -22,7 +27,7 @@ def population():
 
     team_insert = 'INSERT INTO Team (TeamName) Values(%s);'
 
-    with open('basketball.csv', encoding='utf8', errors='ignore') as mfile:
+    with open('stats.csv', encoding='utf8', errors='ignore') as mfile:
         csvreader = csv.DictReader(mfile)
         for row in csvreader:
             print(row)
@@ -57,7 +62,11 @@ def population():
 
 
 def main():
-    population()
+    prompt = input("Populate NBA_DATA? (y/n)")
+    if prompt == "y":
+            populate_db()
+    else:
+        print("NBA_DATA not populated")
 
 
 if __name__ == '__main__':

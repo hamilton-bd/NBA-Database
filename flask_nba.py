@@ -3,7 +3,7 @@ import MySQLdb
 import MySQLdb.cursors
 from functools import wraps
 import flask
-from get_key import get_key
+from main import get_key
 
 app = flask.Flask(__name__, static_folder='static', static_url_path='')
 
@@ -40,10 +40,10 @@ def Player(player_name):
     c.execute('SELECT * FROM Player WHERE PlayerName=%s;', [player_name])
     if c.rowcount > 0:
         rs = c.fetchall()
-        return flask.render_template('NBA.html', player_name=player_name,
+        return flask.render_template('nba.html', player_name=player_name,
                                      data=[r for r in rs])
     else:
-        return flask.render_template('NBA.html', player_name=player_name)
+        return flask.render_template('nba.html', player_name=player_name)
 
 
 @app.route('/PlayerShooting/<player_name>')
@@ -59,10 +59,10 @@ def PlayerShooting(player_name):
               ' PlayerName=%s;', [player_name])
     if c.rowcount > 0:
         rs = c.fetchall()
-        return flask.render_template('NBA2.html', player_name=player_name,
+        return flask.render_template('nba2.html', player_name=player_name,
                                      data=[r for r in rs])
     else:
-        return flask.render_template('NBA2.html', player_name=player_name)
+        return flask.render_template('nba2.html', player_name=player_name)
 
 
 @app.route('/PlayerTeam/<player_name>')
@@ -78,10 +78,10 @@ def PlayerTeam(player_name):
               ' WHERE PlayerName=%s;', [player_name])
     if c.rowcount > 0:
         rs = c.fetchall()
-        return flask.render_template('NBA3.html', player_name=player_name,
+        return flask.render_template('nba3.html', player_name=player_name,
                                      data=[r for r in rs])
     else:
-        return flask.render_template('NBA3.html', player_name=player_name)
+        return flask.render_template('nba3.html', player_name=player_name)
 
 
 @app.route('/json/Player/<player_name>')
