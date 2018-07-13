@@ -1,0 +1,5 @@
+# Ignore key.txt
+key.txt
+
+# Ignore __pycache__
+__pycache__
